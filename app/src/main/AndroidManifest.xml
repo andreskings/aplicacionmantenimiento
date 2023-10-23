@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Aplicacionmantenimiento"
         tools:targetApi="31">
         <activity
+            android:name=".crear_alarma"
+            android:exported="false" />
+        <activity
             android:name=".historial_mantenimientos"
             android:exported="false" />
         <activity
@@ -27,6 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
 </manifest>

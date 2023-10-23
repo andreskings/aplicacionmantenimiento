@@ -15,12 +15,18 @@
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="5dp">
+        android:layout_width="335dp"
+        android:layout_height="134dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <!-- ImageView para mostrar la imagen del mantenimiento -->
+
+        <!-- TextView para mostrar el título del mantenimiento -->
         <ImageView
             android:id="@+id/idIVMaintenanceImage"
             android:layout_width="100dp"
@@ -33,15 +39,14 @@
             android:padding="5dp"
             android:src="@drawable/imagen_del_mantenimiento" />
 
-        <!-- TextView para mostrar el título del mantenimiento -->
         <TextView
             android:id="@+id/idTVMaintenanceTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_width="212dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="13dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/idIVMaintenanceImage"
-            android:text="@string/maintenance_title"
+            android:text="Registro mantenimiento 8721"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -55,6 +60,6 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_toEndOf="@id/idIVMaintenanceImage"
-            android:text="@string/maintenance_description" />
+            android:text="maintenance_description" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

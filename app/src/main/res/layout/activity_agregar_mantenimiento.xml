@@ -10,7 +10,7 @@
     tools:context=".agregar_mantenimiento">
 
     <EditText
-        android:id="@+id/tituloEditText"
+        android:id="@+id/titulomantenimiento"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Título del Mantenimiento"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.023" />
 
     <EditText
-        android:id="@+id/descripcionEditText"
+        android:id="@+id/descripcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -34,18 +34,18 @@
         app:layout_constraintVertical_bias="0.113" />
 
     <Button
-        android:id="@+id/configurarAlarmaButton"
+        android:id="@+id/btnconfiguraralarma"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:text="Configurar Alarma Mensual"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.213" />
 
     <Button
-        android:id="@+id/guardarMantenimientoButton"
+        android:id="@+id/btnguardarman"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Guardar Mantenimiento"
@@ -54,5 +54,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.323" />
+
+    <TextView
+        android:id="@+id/txtagregar"
+        android:layout_width="281dp"
+        android:layout_height="186dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.919" />
+
+    <Button
+        android:id="@+id/btnlimpiar"
+        android:layout_width="361dp"
+        android:layout_height="50dp"
+        android:text="Limpiar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.422" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
