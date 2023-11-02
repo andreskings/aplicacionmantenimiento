@@ -4,24 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class agregar_mantenimiento extends AppCompatActivity {
     private EditText editTextTitulo;
     private EditText editTextDescripcion;
-    private LinearLayout linearAgregar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +23,12 @@ public class agregar_mantenimiento extends AppCompatActivity {
 
         editTextTitulo = findViewById(R.id.titulomantenimiento);
         editTextDescripcion = findViewById(R.id.descripcion);
-        linearAgregar = findViewById(R.id.lineragregar);
 
         Button btnGuardar = findViewById(R.id.btnguardarman);
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                guardarInformacionEnArchivo();
+                guardarInformacionEnFirebase();
             }
         });
 
@@ -52,86 +44,42 @@ public class agregar_mantenimiento extends AppCompatActivity {
         btnConfigurarAlarma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Aquí deberás agregar código para configurar una alarma
+                // Por ejemplo, puedes abrir una nueva actividad para configurar la alarma o mostrar un diálogo de configuración de alarma.
+                // Asegúrate de implementar la lógica de configuración de la alarma según tus necesidades.
+                // Ejemplo de cómo abrir una nueva actividad:
                 Intent intent = new Intent(agregar_mantenimiento.this, crear_alarma.class);
                 startActivity(intent);
             }
         });
 
-        // Mostrar el contenido del archivo al iniciar la actividad
-        mostrarContenidoDeArchivo();
     }
 
-    private void guardarInformacionEnArchivo() {
+    private void guardarInformacionEnFirebase() {
         String titulo = editTextTitulo.getText().toString();
         String descripcion = editTextDescripcion.getText().toString();
-        String informacion = "Título: " + titulo + "\nDescripción: " + descripcion;
 
-        try {
-            // Abre o crea el archivo en modo de apéndice (si no existe, lo crea)
-            FileOutputStream fileOutputStream = openFileOutput("txtagregar.txt", MODE_APPEND);
-            OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
+        // Inicializa la referencia a la base de datos Firebase
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("mantenimientos");
 
-            writer.write(informacion);
-            writer.write("\n");
-
-            writer.close();
-            fileOutputStream.close();
-
-            Toast.makeText(this, "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
-
-            // Crear una nueva vista con el diseño de activity_historial_mantenimientos
-            View nuevoMantenimientoView = LayoutInflater.from(this).inflate(R.layout.activity_historial_mantenimientos, null);
-
-            // Configurar los elementos de la vista
-            TextView tituloTextView = nuevoMantenimientoView.findViewById(R.id.idTVMaintenanceTitle);
-            TextView descripcionTextView = nuevoMantenimientoView.findViewById(R.id.idTVMaintenanceDescription);
-
-            tituloTextView.setText("Registro mantenimiento " + titulo); // Establece el título
-            descripcionTextView.setText(descripcion); // Establece la descripción
-
-            // Agregar la vista creada dinámicamente al contenedor
-            linearAgregar.addView(nuevoMantenimientoView);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void mostrarContenidoDeArchivo() {
-        try {
-            FileInputStream fileInputStream = openFileInput("txtagregar.txt");
-            InputStreamReader reader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
-
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line).append("\n");
+        // Crea un nuevo nodo con una clave única y establece los datos
+        DatabaseReference nuevoMantenimientoRef = ref.push();
+        nuevoMantenimientoRef.child("titulo").setValue(titulo, (databaseError, databaseReference) -> {
+            if (databaseError != null) {
+                // Handle the error here, e.g., Log.e("FirebaseError", databaseError.getMessage());
+                Toast.makeText(agregar_mantenimiento.this, "Error al guardar los datos en Firebase", Toast.LENGTH_SHORT).show();
+            } else {
+                // Datos guardados con éxito
+                Toast.makeText(agregar_mantenimiento.this, "Datos guardados correctamente en Firebase", Toast.LENGTH_SHORT).show();
             }
-
-            reader.close();
-            // Actualizar el contenido del elemento TextView
-            // txtAgregar.setText(stringBuilder.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        });
+        nuevoMantenimientoRef.child("descripcion").setValue(descripcion);
     }
 
     private void limpiarDatos() {
-        try {
-            // Abre el archivo en modo de escritura, lo que lo vaciará.
-            FileOutputStream fileOutputStream = openFileOutput("txtagregar.txt", MODE_PRIVATE);
-            fileOutputStream.close();
-
-            // Actualizar la vista para reflejar que los datos han sido eliminados.
-            // txtAgregar.setText("");
-            linearAgregar.removeAllViews();
-
-            Toast.makeText(this, "Datos eliminados correctamente", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Error al eliminar los datos", Toast.LENGTH_SHORT).show();
-        }
+        // Puedes implementar esto si deseas limpiar los campos de texto
+        editTextTitulo.setText("");
+        editTextDescripcion.setText("");
     }
 }
