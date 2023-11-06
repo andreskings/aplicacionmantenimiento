@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".crear_alarma">
 
     <!-- Reloj digital en la parte superior -->
     <DigitalClock
@@ -20,40 +20,45 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp"/>
 
-    <!-- DatePicker para seleccionar la fecha -->
-    <DatePicker
-        android:id="@+id/datePicker"
-        android:layout_width="0dp"
+    <!-- TextViews para mostrar la fecha y hora seleccionadas -->
+    <TextView
+        android:id="@+id/textViewFechaSeleccionada"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/digitalClock"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/timePicker"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"/>
-
-    <!-- TimePicker para seleccionar la hora -->
-
-    <!-- Botón para guardar la alarma -->
-    <TimePicker
-        android:id="@+id/timePicker"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/datePicker"
-        app:layout_constraintTop_toBottomOf="@+id/digitalClock" />
+        android:layout_marginTop="16dp"/>
 
+    <TextView
+        android:id="@+id/textViewHoraSeleccionada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFechaSeleccionada"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Botón para seleccionar la fecha y hora -->
+    <Button
+        android:id="@+id/btnSeleccionarFechaHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar Fecha y Hora"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHoraSeleccionada"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"/>
+    <!-- Botón para guardar la alarma -->
     <Button
         android:id="@+id/btnGuardarAlarma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Guardar Alarma"
-        app:layout_constraintTop_toBottomOf="@+id/datePicker"
+        app:layout_constraintTop_toBottomOf="@+id/btnSeleccionarFechaHora"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp"/>
 
+
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-

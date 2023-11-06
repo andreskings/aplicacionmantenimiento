@@ -34,7 +34,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".AlarmReceiver"
+            tools:ignore="WrongManifestParent" />
     </application>
+
     <uses-permission android:name="android.permission.INTERNET" />
 
 
