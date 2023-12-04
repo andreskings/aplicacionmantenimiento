@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button botonver = findViewById(R.id.btnvermantenimiento);
         Button botonagregar = findViewById(R.id.btnagregarmantenimiento);
+        ImageButton btnimagengps = findViewById(R.id.btnimagengps);
 
         // Configura un OnClickListener para el ImageButton
         botonver.setOnClickListener(v -> {
@@ -26,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
             // Crear un Intent para iniciar la actividad DatosPerro
             Intent intent = new Intent(MainActivity.this, agregar_mantenimiento.class);
             startActivity(intent);
+        });
+            btnimagengps.setOnClickListener(v ->{
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(intent);
+
+
         });
     }
 }

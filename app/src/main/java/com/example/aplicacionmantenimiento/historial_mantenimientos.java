@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -93,18 +94,43 @@ public class historial_mantenimientos extends AppCompatActivity {
     }
 
     // Método para editar un mantenimiento
+// Método para editar un mantenimiento
     private void editarMantenimiento(final String mantenimientoKey) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Editar Mantenimiento");
 
+        // Usar un RelativeLayout para colocar los campos de edición uno debajo del otro
+        RelativeLayout layout = new RelativeLayout(this);
+
         // Agrega campos de edición para título y descripción
         final EditText tituloEditText = new EditText(this);
+        tituloEditText.setId(View.generateViewId());
         tituloEditText.setHint("Título");
+
         final EditText descripcionEditText = new EditText(this);
+        descripcionEditText.setId(View.generateViewId());
         descripcionEditText.setHint("Descripción");
 
-        builder.setView(tituloEditText);
-        builder.setView(descripcionEditText);
+        // Configura las reglas de diseño para los campos de edición
+        RelativeLayout.LayoutParams paramsTitulo = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        paramsTitulo.addRule(RelativeLayout.BELOW, R.id.listrecibir);
+        tituloEditText.setLayoutParams(paramsTitulo);
+
+        RelativeLayout.LayoutParams paramsDescripcion = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        paramsDescripcion.addRule(RelativeLayout.BELOW, tituloEditText.getId());
+        descripcionEditText.setLayoutParams(paramsDescripcion);
+
+        // Agrega los campos de edición al RelativeLayout
+        layout.addView(tituloEditText);
+        layout.addView(descripcionEditText);
+
+        builder.setView(layout);
 
         // Recupera los datos actuales del mantenimiento
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -146,6 +172,7 @@ public class historial_mantenimientos extends AppCompatActivity {
 
         builder.create().show();
     }
+
 
     // Método para eliminar un mantenimiento
     private void eliminarMantenimiento(String mantenimientoKey) {
